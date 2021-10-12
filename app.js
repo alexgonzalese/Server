@@ -1,9 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const userRoutes = require("./routers/user");
 const app = express();
-const {Api_VERSION} = require('./config');
-
+const {API_VERSION} = require('./config');
+const cors = require('cors');
 //load routing
 const userRoutes = require("./routers/user");
 
@@ -14,6 +13,8 @@ app.use(bodyParser.json());
 //..........
 
 //Route Basic
+app.use(cors());
 app.use(`/api/${API_VERSION}`, userRoutes);
+
 
 module.exports = app;
