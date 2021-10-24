@@ -4,6 +4,7 @@ const app = express();
 const {API_VERSION} = require('./config');
 const cors = require('cors');
 //load routing
+const authRoutes = require("./routers/auth");
 const userRoutes = require("./routers/user");
 
 app.use(bodyParser.urlencoded({extended:false}));
@@ -14,6 +15,7 @@ app.use(bodyParser.json());
 
 //Route Basic
 app.use(cors());
+app.use(`/api/${API_VERSION}`, authRoutes);
 app.use(`/api/${API_VERSION}`, userRoutes);
 
 
