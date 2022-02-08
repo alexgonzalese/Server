@@ -1,25 +1,20 @@
 const mongoose = require("mongoose");
 const app = require("./app");
-const port = process.env.port || 3977;
+const port = process.env.port || 3990;
 const portDb = 27017;
 const { API_VERSION, PORT_DB } = require("./config");
 
-mongoose.set("useFindAndModify",false);
+const express = require("express");
 
-mongoose.connect(
-  `mongodb://localhost: ${PORT_DB}/dbproyectsir`,
-  { useNewUrlParser: true, useUnifiedTopology:true },
-  (err, res) => {
-    if (err) {
-      throw err;
-    } else {
-      console.log("La conexion a la base de datos es correcta");
-      app.listen(port, () => {
-        console.log("#####################");
-        console.log("###### API REST #####");
-        console.log("#####################");
-        console.log(`http://localhost:${port}/api/${API_VERSION}/`);
-      });
-    }
-  }
-);
+mongoose.set("useFindAndModify", false);
+
+mongoose
+  .connect(
+    "mongodb+srv://offertUserAdm:OiG4pWh5ljJU76Zl@cluster0.sh3r8.mongodb.net/OfferTDB?retryWrites=true&w=majority"
+  )
+  .then((result) => {
+    app.listen(port, () =>
+      console.log(`http://localhost:${port}/api/${API_VERSION}/`)
+    );
+  })
+  .catch((err) => console.log(err));
